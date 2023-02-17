@@ -1,0 +1,30 @@
+{
+  "name": "fortal-club",
+  "version": "1.0.0",
+  "description": "<ul>\r <li>Sites que serviram como base para fazer o sistema: </li>\r <ul>\r <li>https://site.multiclubes.com.br/\r <li>https://bluware.com.br/\r <li>https://clubesassociados.com.br/\r </ul>\r </ul>\r <hr/>\r <h3><b>Objetivo do Projeto:</b> Criar um sistema para que possa facilitar o controle de quem está se associando ao clube.</h3>\r <h3><b>Período:</b> 13/02/2023 - 17/04/2023.</h3>\r <h3><b>Tecnologias:</b> NodeJS, PostgreeSQL, React.</h3>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thaless4nt0s/Fortal-club.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thaless4nt0s/Fortal-club/issues"
+  },
+  "homepage": "https://github.com/thaless4nt0s/Fortal-club#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.13.0",
+    "@types/sequelize": "^4.28.14",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
