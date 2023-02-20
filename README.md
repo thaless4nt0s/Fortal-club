@@ -12,4 +12,4 @@
 <hr/>
 <h3><b>Objetivo do Projeto:</b> Criar um sistema para que possa facilitar o controle de quem está se associando ao clube.</h3>
 <h3><b>Período:</b> 13/02/2023 - 17/04/2023.</h3>
-<h3><b>Tecnologias:</b> NodeJS, PostgreeSQL, React.</h3>
+<h3><b>Tecnologias:</b> NodeJS, PostgreeSQL, React e Typescript.</h3>
