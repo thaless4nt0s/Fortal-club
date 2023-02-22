@@ -2,6 +2,7 @@ import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
 import AdminJSSequelize from "@adminjs/sequelize";
 import { sequelize } from "../database";
+import { adminJsResoucers } from "./resources";
 
 AdminJS.registerAdapter(AdminJSSequelize)
 
@@ -28,7 +29,8 @@ export const adminjs = new AdminJS({
         hoverBg: '#151515'
       }
     }
-  }
+  },
+  resources: adminJsResoucers
 })
 
 export const adminJsRouter = AdminJSExpress.buildRouter(adminjs);
