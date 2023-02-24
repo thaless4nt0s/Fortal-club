@@ -5,6 +5,7 @@ export interface Admins {
   id: number
   nome: string
   email: string
+  senha: string
 } // Dizer o formato do objeto da nossa tabela de admin
 
 // Atributos que serão usados para criar um administrador no banco de dados
@@ -28,5 +29,9 @@ export const Admins = sequelize.define<AdminInstance, Admins>("admins", {
     allowNull: false,
     type: DataTypes.STRING,
     unique: true
+  },
+  senha:{
+    allowNull: false,
+    type: DataTypes.STRING
   }
 });
