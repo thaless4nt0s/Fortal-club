@@ -28,7 +28,10 @@ export const Admins = sequelize.define<AdminInstance, Admins>("admins", {
   email: {
     allowNull: false,
     type: DataTypes.STRING,
-    unique: true
+    unique: true,
+    validate:{
+      isEmail: true
+    }
   },
   senha:{
     allowNull: false,

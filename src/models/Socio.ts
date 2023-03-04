@@ -30,6 +30,9 @@ export const Socios = sequelize.define<SocioInstance, Socios>("socios", {
     allowNull: false,
     type: DataTypes.STRING,
     unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   senha: {
     allowNull: false,
