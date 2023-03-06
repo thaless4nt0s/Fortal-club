@@ -3,7 +3,7 @@ import AdminJSExpress from "@adminjs/express";
 import AdminJSSequelize from "@adminjs/sequelize";
 import { sequelize } from "../database";
 import { adminJsResoucers } from "./resources";
-import { Admins, Socios } from "../models";
+import { Admins, Depoimentos, Deps, Socios } from "../models";
 import bcrypt from "bcrypt";
 import {locale} from './locale';
 AdminJS.registerAdapter(AdminJSSequelize);
@@ -33,7 +33,23 @@ export const adminjs = new AdminJS({
     },
   },
   resources: adminJsResoucers,
-  locale: locale
+  locale: locale,
+  dashboard: {
+    component: AdminJS.bundle("./components/Dashboard"),
+    handler: async (req, res, context) =>{
+      const socios = await Socios.count();
+      const dependentes = await Deps.count();
+      const admins = await Admins.count();
+      const depoimentos = await Depoimentos.count();
+
+      res.json({
+        "socios": socios,
+        'dependentes': dependentes,
+        'administradores': admins,
+        'depoimentos': depoimentos
+      })
+    }
+  }
 });
 
 export const adminJsRouter = AdminJSExpress.buildAuthenticatedRouter(
