@@ -5,6 +5,7 @@ import { sequelize } from "../database";
 import { adminJsResoucers } from "./resources";
 import { Admins, Socios } from "../models";
 import bcrypt from "bcrypt";
+import {locale} from './locale';
 AdminJS.registerAdapter(AdminJSSequelize);
 
 export const adminjs = new AdminJS({
@@ -32,6 +33,7 @@ export const adminjs = new AdminJS({
     },
   },
   resources: adminJsResoucers,
+  locale: locale
 });
 
 export const adminJsRouter = AdminJSExpress.buildAuthenticatedRouter(
