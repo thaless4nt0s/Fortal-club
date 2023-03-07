@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
-import { Socios } from "../models";
+import { socioService } from "../services/socioService";
+import { getPaginationParams } from "../helpers/getPaginationParams";
 
 export const sociosController = {
   index: async (req: Request, res: Response) => {
+    const [page, perPage] = getPaginationParams(req.query)
     try {
-      const socios = await Socios.findAll({
-        attributes: ["id", "nome", "email"],
-        order: [["id", "ASC"]],
-      }); //Encontra todos os socios
-
-      return res.json(socios);
+      const paginatedSocios = await socioService.findAllPaginated(page, perPage);
+      return res.status(200).json(paginatedSocios);
     } catch (err) {
-      if (err instanceof Error){
-        return res.status(400).json({message: err.message})
+      if (err instanceof Error) {
+        return res.status(400).json({ message: err.message });
       }
     }
   },
