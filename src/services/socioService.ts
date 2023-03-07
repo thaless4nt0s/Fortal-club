@@ -18,5 +18,16 @@ export const socioService = {
       perPage,
       total: count
     }
+  },
+
+  findByIdWithSocios: async(id: string) =>{
+    const socioWithDependentes = await Socios.findByPk(id,{
+      attributes: ["id", 'nome','email'],
+      include: {
+        association: "deps",
+        attributes: ["id", 'nome']
+      }
+    })
+    return socioWithDependentes;
   }
 }

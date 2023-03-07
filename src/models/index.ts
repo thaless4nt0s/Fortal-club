@@ -5,7 +5,7 @@ import {Socios} from './Socio';
 import { Veiculos } from './Veiculo';
 
 Socios.hasOne(Veiculos);
-Socios.hasMany(Deps);
+Socios.hasMany(Deps, {as:"deps"});
 Socios.hasOne(Depoimentos);
 
 Depoimentos.belongsTo(Socios);
