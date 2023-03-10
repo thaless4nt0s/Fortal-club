@@ -9,7 +9,7 @@ Socios.hasMany(Deps, {as:"deps"});
 Socios.hasOne(Depoimentos);
 
 Depoimentos.belongsTo(Socios);
-Deps.belongsTo(Socios);
+Deps.belongsTo(Socios, {as: 'socios'});
 Veiculos.belongsTo(Socios);
 
 export{
