@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../database";
+import bcrypt from 'bcrypt';
 
 export interface Socios {
   id: number;
@@ -38,4 +39,12 @@ export const Socios = sequelize.define<SocioInstance, Socios>("socios", {
     allowNull: false,
     type: DataTypes.STRING,
   },
+}, {
+    hooks:{
+      beforeSave: async(socio)=>{
+        if(socio.isNewRecord || socio.changed("senha")){
+          socio.senha = await bcrypt.hash(socio.senha.toString(), 10);
+        }
+      }
+    }
 });

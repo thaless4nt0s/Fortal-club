@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../database";
-
+import bcrypt from 'bcrypt';
 export interface Admins {
   id: number
   nome: string
@@ -37,4 +37,13 @@ export const Admins = sequelize.define<AdminInstance, Admins>("admins", {
     allowNull: false,
     type: DataTypes.STRING
   }
-});
+}, {
+    hooks:{
+      beforeSave: async(admin)=>{
+        if(admin.isNewRecord || admin.changed("senha")){
+          admin.senha = await bcrypt.hash(admin.senha.toString(), 10);
+        }
+      }
+    }
+  }
+);
