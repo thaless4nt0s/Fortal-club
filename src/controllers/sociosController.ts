@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { socioService } from "../services/socioService";
 import { getPaginationParams } from "../helpers/getPaginationParams";
-import {hash} from 'bcrypt';
+import {getIdBySession } from "./authController";
 export const sociosController = {
   index: async (req: Request, res: Response) => {
     const [page, perPage] = getPaginationParams(req.query);
@@ -45,6 +45,15 @@ export const sociosController = {
       if (err instanceof Error) {
         return res.status(400).json({ message: err.message });
       }
-    }
+    }    
   },
+  remover: async(req: Request, res: Response) =>{
+      try{
+        const id = await getIdBySession();
+        const removido = await socioService.delete(id);
+        return res.status(200).json(removido);
+      }catch(err){
+        return res.status(500).json({message: err});
+      }
+  }
 };

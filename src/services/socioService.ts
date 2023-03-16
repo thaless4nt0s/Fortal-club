@@ -39,4 +39,8 @@ export const socioService = {
     const newSocio = await Socios.create(attributes);
     return newSocio;
   },
+  delete: async(id: number)=>{
+    const socio = await Socios.destroy({where:{id}});
+    return socio;
+  }
 };

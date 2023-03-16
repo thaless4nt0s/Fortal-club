@@ -11,5 +11,6 @@ router.get("/socios", sociosController.index);
 router.get('/socios/:id', sociosController.show);
 router.get("/dependentes", dependentesController.index);
 router.get("/dependentes/:id", dependentesController.findById);
+router.delete("/socios/", sociosController.remover);
 
 export {router}
