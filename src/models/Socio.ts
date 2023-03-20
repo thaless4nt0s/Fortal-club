@@ -10,6 +10,7 @@ export interface Socios {
   senha: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SocioCreationAttributes extends Optional<Socios, "id"> {}
 
 // Instancia de um sócio, de um model sócio, vai possuir todas as prop e metodos que o sequelize pssui

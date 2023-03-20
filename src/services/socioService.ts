@@ -1,5 +1,4 @@
 import { Socios } from "../models";
-import { Request } from "express";
 import { SocioCreationAttributes } from "../models/Socio";
 
 export const socioService = {
