@@ -9,22 +9,22 @@ import { depoimentosResourceOptions } from "./depoimento";
 export const adminJsResoucers: ResourceWithOptions[] = [
   {
     resource: Admins,
-    options: adminResourceOptions
+    options: adminResourceOptions,
   },
   {
     resource: Socios,
-    options: socioResourceOptions
+    options: socioResourceOptions,
   },
   {
     resource: Deps,
-    options: dependentesResourceOptions
+    options: dependentesResourceOptions,
   },
   {
     resource: Depoimentos,
-    options: depoimentosResourceOptions
+    options: depoimentosResourceOptions,
   },
   {
     resource: Veiculos,
-    options: veiculoResourceOptions
+    options: veiculoResourceOptions,
   }
-]
+];

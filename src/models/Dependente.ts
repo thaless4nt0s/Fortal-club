@@ -7,6 +7,7 @@ export interface Deps {
   socioId: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface DependenteCreationAttributes extends Optional<Deps, "id"> {}
 
 // Instancia de um dependente, de um model dependente, vai possuir todas as prop e metodos que o sequelize pssui
@@ -31,5 +32,5 @@ export const Deps = sequelize.define<DependenteInstance, Deps>("deps", {
     onUpdate: "CASCADE",
     onDelete: "RESTRICT",
     type: DataTypes.INTEGER,
-  },
+  }
 });
