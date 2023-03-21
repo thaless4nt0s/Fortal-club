@@ -15,4 +15,7 @@ router.get("/dependentes/:id", dependentesController.findById);
 
 router.delete("/socios/", sociosController.remover);
 router.delete("/dependentes/:id", dependentesController.delete);
+
+router.put("/dependentes/:id", dependentesController.update);
+
 export { router };

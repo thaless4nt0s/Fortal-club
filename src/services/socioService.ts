@@ -1,3 +1,4 @@
+import { getIdBySession } from "../controllers/authController";
 import { Socios } from "../models";
 import { SocioCreationAttributes } from "../models/Socio";
 
@@ -43,3 +44,12 @@ export const socioService = {
     return socio;
   }
 };
+
+export async function socioExists(){
+  const socioId = await getIdBySession();
+  const socio = await socioService.findByIdWithSocios(socioId.toString());
+  if (!socio) {
+    throw new Error("O usuário não está logado !!");
+  }
+  return socioId;
+}

@@ -1,6 +1,6 @@
-import { getIdBySession } from "../controllers/authController";
 import { Deps } from "../models";
-import { socioService } from "./socioService";
+import { DependenteCreationAttributes } from "../models/Dependente";
+import { socioExists } from "./socioService";
 
 export const dependenteService = {
   findAllDeps: async () => {
@@ -14,11 +14,7 @@ export const dependenteService = {
     return dependente;
   },
   deleteDep: async (id: number) => {
-    const socioId = await getIdBySession();
-    const socio = await socioService.findByIdWithSocios(socioId.toString());
-    if (!socio) {
-      throw new Error("O usuário não está logado !!");
-    }
+    const socioId = await socioExists();
     const dependente = await Deps.destroy({
       where: {
         id,
@@ -26,5 +22,17 @@ export const dependenteService = {
       },
     });
     return dependente;
+  },
+  updateDep: async (attributes: DependenteCreationAttributes) => {
+    const socioId = await socioExists();
+    const { id, nome } = await attributes;
+    const depUpdate = await Deps.findByPk(id, {
+      attributes: ["id", "nome", "socioId"],
+    });
+    if (socioId !== depUpdate?.socioId){
+      throw new Error("Dependente não pertence ao sócio que está logado !!");
+    }
+    depUpdate?.update({nome: nome});
+    return depUpdate;
   },
 };
