@@ -1,7 +1,9 @@
 import { getIdBySession } from "../controllers/authController";
 import { Socios } from "../models";
 import { SocioCreationAttributes } from "../models/Socio";
-
+import { veiculoService } from "./veiculoService";
+import { dependenteService } from "./dependenteService";
+import { depoimentoService } from "./depoimentoService";
 export const socioService = {
   findAllPaginated: async (page: number, perPage: number) => {
     const offset = (page - 1) * perPage;
@@ -31,21 +33,31 @@ export const socioService = {
     });
     return socioWithDependentes;
   },
-  findByEmail: async(email: string)=>{
-    const socio = await Socios.findOne({where: {email}});
+  findByEmail: async (email: string) => {
+    const socio = await Socios.findOne({ where: { email } });
     return socio;
   },
   create: async (attributes: SocioCreationAttributes) => {
     const newSocio = await Socios.create(attributes);
     return newSocio;
   },
-  delete: async(id: number)=>{
-    const socio = await Socios.destroy({where:{id}});
+  delete: async (id: number) => {
+    await veiculoService.deleteVeiculoBySocio(id);
+    await depoimentoService.deleteDepoimentoBySocio(id);
+    await dependenteService.deleteDepBySocio(id);
+    const socio = await Socios.destroy({ where: { id } });
     return socio;
-  }
+  },
+  update: async (id: number, attributes: SocioCreationAttributes) => {
+    const socioAtualizado = await Socios.findByPk(id, {
+      attributes: ["nome", "email"],
+    });
+    socioAtualizado?.update(attributes);
+    return socioAtualizado;
+  },
 };
 
-export async function socioExists(){
+export async function socioExists() {
   const socioId = await getIdBySession();
   const socio = await socioService.findByIdWithSocios(socioId.toString());
   if (!socio) {

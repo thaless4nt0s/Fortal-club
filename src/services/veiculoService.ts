@@ -40,4 +40,12 @@ export const veiculoService = {
     });
     return veiculo;
   },
+  deleteVeiculoBySocio: async (socioId: number) => {
+    await socioExists();
+    await Veiculos.destroy({
+      where: {
+        socioId,
+      },
+    });
+  },
 };

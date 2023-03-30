@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import { socioService } from "../services/socioService";
+import { socioExists, socioService } from "../services/socioService";
 import { getPaginationParams } from "../helpers/getPaginationParams";
-import {getIdBySession } from "./authController";
 export const sociosController = {
   index: async (req: Request, res: Response) => {
     const [page, perPage] = getPaginationParams(req.query);
@@ -30,7 +29,7 @@ export const sociosController = {
     }
   },
 
-  register: async (req: Request, res: Response) => {
+  create: async (req: Request, res: Response) => {
     const { nome, email, senha } = req.body;
     try {
       const socioAlreadyExists = await socioService.findByEmail(email);
@@ -38,22 +37,38 @@ export const sociosController = {
         throw new Error("Este email já está cadastrado !!");
       }
       const socio = await socioService.create({
-        nome, email, senha
+        nome,
+        email,
+        senha,
       });
       return res.status(200).json(socio);
     } catch (err) {
       if (err instanceof Error) {
         return res.status(400).json({ message: err.message });
       }
-    }    
+    }
   },
-  remover: async(req: Request, res: Response) =>{
-      try{
-        const id = await getIdBySession();
-        const removido = await socioService.delete(id);
-        return res.status(200).json(removido);
-      }catch(err){
-        return res.status(500).json({message: err});
+  delete: async (req: Request, res: Response) => {
+    try {
+      const id = await socioExists();
+      const removido = await socioService.delete(id);
+      return res.status(200).json(removido);
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(500).json({ message: err.message });
       }
-  }
+    }
+  },
+  update: async (req: Request, res: Response) => {
+    try {
+      const id = await socioExists();
+      const attributes = req.body;
+      const socioAtualizado = await socioService.update(id, attributes);
+      return res.status(200).json(socioAtualizado);
+    } catch (err) {
+      if (err instanceof Error) {
+        return res.status(500).json({ message: err.message });
+      }
+    }
+  },
 };

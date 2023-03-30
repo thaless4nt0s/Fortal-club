@@ -48,4 +48,13 @@ export const depoimentoService = {
     });
     return depoimentoDeletado;
   },
+
+  deleteDepoimentoBySocio: async (socioId: number) => {
+    await socioExists();
+    await Depoimentos.destroy({
+      where: {
+        socioId,
+      },
+    });
+  },
 };
